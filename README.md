@@ -26,49 +26,34 @@ This is the single-page marketing website for Metrias Medical.
 Since you have GitHub Desktop:
 
 1. Open GitHub Desktop.
-2. You will see the "Initial commit" in the history.
-3. Click **"Publish repository"** in the top right toolbar.
-4. Name the repository (e.g., `metrias-medical-site`) and uncheck "Keep this code private" if you want it to be a public site (private is fine too for Cloudflare).
+2. You will see the commits in the history.
+3. Click **"Publish repository"** in the top right.
+4. Name the repository (e.g., `metrias-medical-site`).
 5. Click **Publish Repository**.
 
-### 2. Deploy to Cloudflare Pages (Recommended)
+### 2. Deployment Options
 
-1. Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com/) > **Workers & Pages**.
-2. Click **Create Application** > **Pages** > **Connect to Git**.
-3. Select your new `metrias-medical-site` repository.
-4. **Build Settings**:
-   - **Framework Preset**: None / Static HTML
-   - **Build Command**: (Leave blank)
-   - **Build Output Directory**: (Leave blank / root)
-5. Click **Save and Deploy**.
+#### Option A: Netlify (Easiest DNS)
 
-### 3. Configure Custom Domain (Godaddy, Namecheap, etc.)
+1. Log in to [Netlify](https://www.netlify.com/).
+2. Click **"Add new site"** > **"Import an existing project"**.
+3. Select **GitHub** and choose your `metrias-medical-site` repo.
+4. **Build Settings**: Leave blank. Click **Deploy**.
+5. Once deployed, go to **Domain management** > **Add custom domain**.
+6. Enter `metriasmedical.com`.
+7. Netlify will give you a CNAME (e.g., `metrias-medical.netlify.app`). Update your registrar's DNS to point `@` and `www` to this address.
 
-Once deployed on Cloudflare Pages, you will get a `.pages.dev` URL. To map `metriasmedical.com`:
+#### Option B: GitHub Pages (Free, Built-in)
 
-1. In Cloudflare Pages project settings, go to **Custom Domains**.
-2. Click **Set up a custom domain**.
-3. Enter `metriasmedical.com` and click **Continue**.
+1. In your repository on GitHub.com, go to **Settings** > **Pages**.
+2. Under "Build and deployment", select **Source** as `Deploy from a branch`.
+3. Select branch: `main` / folder: `/(root)`. Click **Save**.
+4. In "Custom domain", enter `metriasmedical.com` and click **Save**.
+5. GitHub will provide DNS instructions (usually creating A records to GitHub's IPs and a CNAME for www).
 
-#### If you use Cloudflare DNS (Best)
+#### Option C: Cloudflare Pages (Fastest Global CDN)
 
-- Cloudflare will automatically add the CNAME record for you. Just confirm the assignment.
-
-#### If you use External DNS (Godaddy/Namecheap)
-
-Cloudflare will give you a CNAME target (e.g., `metrias-medical-site.pages.dev`).
-
-1. Log in to your registrar (e.g., Godaddy).
-2. Go to **DNS Management**.
-3. **Delete** any existing A records for `@` or `www`.
-4. Add the following records:
-
-| Type | Name | Content / Value | TTL |
-|------|------|-----------------|-----|
-| CNAME | @   | `metrias-medical-site.pages.dev` | Auto / 1 Hour |
-| CNAME | www | `metrias-medical-site.pages.dev` | Auto / 1 Hour |
-
-*Note: Some registrars (like Godaddy/Namecheap) don't support CNAME at the root (@). If so, Cloudflare Pages will ask you to verify via a TXT record, or you might prefer to move your Nameservers to Cloudflare (Free) for easier management.*
+*See previous instructions if you prefer Cloudflare's performance features.*
 
 ## Local Development
 
